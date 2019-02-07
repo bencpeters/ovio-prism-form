@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Select2 CSS (used for skill selector) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+
+    <style>
+      /* Removes selected results from the multi-select */
+      .select2-results__option[aria-selected=true] {
+        display: none;
+      }
+
+      select.selector-multiple {
+        height: 37px;
+      }
+    </style>
+
+    <title>Volunteer for OvioHub</title>
+  </head>
+  <body>
+
+    <div class="container">
+      <div class="col-lg-9 offset-lg-1">
+        <form novalidate="">
+
+          <div class="border p-4">
+            <h3>Who are you?</h3>
+            <div class="form-row">
+              <div class="col">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" placeholder="Name" id="name" required="" />
+              </div>
+              <div class="col">
+                <label for="name">Email</label>
+                <input type="text" class="form-control" placeholder="Email" id="email" required="" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col">
+                <label for="name">City</label>
+                <input type="text" class="form-control" placeholder="City" id="city" required="" />
+              </div>
+              <div class="col">
+                <label for="name">Country</label>
+                <input type="text" class="form-control" placeholder="Country" id="country" required="" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col">
+                <label for="org">Company/University</label>
+                <input type="text" class="form-control" placeholder="Company/University" id="org" />
+              </div>
+              <div class="col-md-5 col-lg-4 align-self-center text-center">
+                <div class="form-check form-check-inline">
+                  <label class="form-check-label mr-2" for="student">Are you a student?</label>
+                  <input class="form-check-input" type="checkbox" id="student" />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col">
+                <label for="other">Anything else we should know about you?</label>
+                <textarea rows="3" class="form-control" id="other"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="border p-4 mt-3">
+            <h3>Profiles & Previous Work</h3>
+
+            <div class="form-row">
+              <div class="col-md-8">
+                <label for="tech-exp">How many years of technical experience do you have?</label>
+                <input type="text" class="form-control" id="tech-exp" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col">
+                <label for="skills">Technical Skills</label>
+                <select class="selector-multiple form-control" name="skills[]" multiple="multiple" size="1">
+                </select>
+              </div>
+            </div> 
+
+            <div class="form-row">
+              <div class="col">
+                <label for="name">LinkedIn Profile</label>
+                <input type="text" class="form-control" placeholder="LinkedIn" id="linked-in" />
+              </div>
+            </div> 
+
+            <div class="form-row">
+              <div class="col">
+                <label for="name">Github Profile</label>
+                <input type="text" class="form-control" placeholder="Github Profile" id="github" />
+              </div>
+            </div> 
+
+            <div class="form-row">
+              <div class="col">
+                <label for="non-profit-experience">Have you ever volunteered for a non-profit before?</label>
+                <textarea rows="3" class="form-control"  id="non-profit-experience">Describe any previous non-profit experience</textarea>
+              </div>
+            </div> 
+          </div>
+
+          <div class="border p-4 mt-3">
+            <h3>Volunteering Interest</h3>
+
+            <div class="form-row">
+              <div class="col"> 
+                <label for="roles">What role(s) would you be interested in?</label>
+                <select class="selector-multiple form-control" name="roles[]" multiple="multiple" size="1">
+                </select>
+              </div>
+
+              <div class="col-md-5 align-self-center text-center">
+                <div class="form-check form-check-inline">
+                  <label class="form-check-label mr-2" for="mentor">Interested in mentoring?</label>
+                  <input class="form-check-input" type="checkbox" id="mentor" />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col"> 
+                <label for="causes">What causes are you most motivated by?</label>
+                <select class="selector-multiple form-control" name="causes[]" multiple="multiple" size="1">
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col-lg-5">
+                <label for="hours">How many hours can you commit weekly?</label>
+                <input class="form-control" type="text" placeholder="Weekly Hours" required="" id="hours" aria-describedby="hoursHelpBlock" />
+                <small class="form-text text-muted" id="hoursHelpBlock">
+                  Please be conservative and realistic in your answer
+                </small>
+              </div>
+
+              <div class="col">
+                <label for="project">Are you interested in a specific project?</label>
+                <input class="form-control" type="text" placeholder="Project Name" id="project" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col">
+                <label for="recommendations">Would you like to recommend any other projects or organizations to feature on the hub?</label>
+                <textarea rows="3" class="form-control" id="recommendations"></textarea>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row py-3">
+            <div class="col text-center">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!-- Select2 JS --> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+    <script>
+      $(document).ready(function() {
+        $('select[name="skills[]"]').select2({
+          tags: true,
+          data: [ 
+            'Android',
+            'Angular',
+            'Architect',
+            'Backend',
+            'C++',
+            'Code Review',
+            'DevOps',
+            'Frontend',
+            'iOS',
+            'Java',
+            'Javascript',
+            'Machine Learning',
+            'Mobile',
+            'Open Source',
+            'PHP',
+            'Python',
+            'React',
+            'React Native',
+            'React Redux',
+            'Ruby',
+            'Technical Design',
+            'UI',
+            'UX',
+            'Web Development',
+            'Ruby on Rails',
+          ],
+        });
+
+        $('select[name="roles[]"]').select2({
+          tags: true,
+          data: [ 
+            'Developer',
+            'Project Lead',
+            'System Architect',
+            'QA',
+            'Designer',
+          ],
+        });
+
+        $('select[name="causes[]"]').select2({
+          tags: true,
+          data: [ 
+            'No Poverty',
+            'Zero Hunger',
+            'Good Health & Well-Being',
+            'Quality Education',
+            'Gender Equality',
+            'Clean Water & Sanitation',
+            'Affordable & Clean Energy',
+            'Decent Work & Economic Growth',
+            'Industry Innovation & Infrastructure',
+            'Reducing Inequality',
+            'Sustainable Cities & Communities',
+            'Responsible Consumption & Production',
+            'Climate Action',
+            'Migration & Refugee Crisis',
+            'Life on Land',
+            'Peace, Justice, & Strong Institutions',
+            'Partnerships to Achieve the Goal',
+            'Arts',
+            'Humanitarian',
+            'Civic Tech',
+          ],
+        });
+      });
+    </script>
+  </body>
+</html>
