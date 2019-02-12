@@ -40,11 +40,16 @@ def submit():
         data = transform_form_to_airtable(request.form)
         send_to_airtable(data)
     except HTTPError as err:
-        app.logger.error(f"Error saving to AirTable: {err}\nAttempted Write: {data}")
+        app.logger.error(f"Error saving to AirTable: {err}\nAttempted Write: {data}") 
         raise err
 
     return jsonify({"status": "success"})
-        #return jsonify({"Error": "Failed to save form data. Try resubmitting, or email support@oviohub.com if the probelm persists."}), 500
+
+
+@app.errorhandler(Exception)
+def handle_error(e):
+    return jsonify({"Error": "Failed to save form data. Try resubmitting, or email support@oviohub.com if the problem persists."}), 500
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
