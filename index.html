@@ -28,7 +28,7 @@
 
     <div class="container">
       <div class="col-lg-9 offset-lg-1">
-        <form novalidate="">
+        <form class="needs-validation" novalidate="">
 
           <div class="border p-4">
             <h3>Who are you?</h3>
@@ -109,7 +109,7 @@
             <div class="form-row">
               <div class="col">
                 <label for="non-profit-experience">Have you ever volunteered for a non-profit before?</label>
-                <textarea rows="3" class="form-control"  name="non-profit-experience">Describe any previous non-profit experience</textarea>
+                <textarea rows="3" class="form-control"  name="non-profit-experience" placeholder="Describe any previous non-profit experience"></textarea>
               </div>
             </div> 
           </div>
@@ -215,9 +215,27 @@
           }, 0);
         }
 
+        $('.form-control').blur(function() {
+          $(this).removeClass('is-valid is-invalid');
+          if (this.validity.valid) {
+            $(this).addClass('is-valid');
+          } else {
+            $(this).addClass('is-invalid');
+          }
+        })
+
         $('#submit').click(function(ev) {
           ev.preventDefault();
           $('#submit-msgs .alert').addClass('d-none');
+
+          var form = $(this).parents('form');
+          form.addClass('was-validated');
+
+          if (form[0].checkValidity() === false) {
+            $('#submit-errors').text('Please fill out all required fields').removeClass('d-none');
+            scrollToBottom();
+            return;
+          }
 
           var btn = this;
           toggleBtnLoading(btn);
@@ -226,7 +244,7 @@
             url: serverUrl,
             type: 'post',
             datatype: 'json',
-            data: $(this).parents('form').serialize(),
+            data: form.serialize(),
           })
 
           request.always(function() {
