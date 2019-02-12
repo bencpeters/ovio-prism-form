@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
     <!-- Select2 CSS (used for skill selector) -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
@@ -114,7 +114,7 @@
             </div> 
           </div>
 
-          <div class="border p-4 mt-3">
+          <div class="border p-4 my-3">
             <h3>Volunteering Interest</h3>
 
             <div class="form-row">
@@ -164,9 +164,22 @@
 
           </div>
 
-          <div class="row py-3">
+          <div class="row" id="submit-msgs">
+            <div class="col">
+              <div class="alert alert-danger d-none" id="submit-errors" role="alert"></div>
+              <div class="alert alert-success d-none" id="submit-success" role="alert">
+                Thank you for submitting your information to OvioHub! 
+              </div>
+            </div>
+          </div>
+
+          <div class="row pb-3">
             <div class="col text-center">
-              <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+              <button type="submit" class="btn btn-primary" id="submit">
+                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                <span class="sr-only d-none">Loading...</span>
+                <span class="btn-text">Submit</span>
+              </button>
             </div>
           </div>
         </form>
@@ -179,8 +192,8 @@
       src="https://code.jquery.com/jquery-3.3.1.min.js"
       integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
       crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
     <!-- Select2 JS --> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
@@ -189,8 +202,26 @@
       $(document).ready(function() {
         var serverUrl = "http://localhost:5000/submit";
 
+        function toggleBtnLoading(btn) {
+          var elem = $(btn).children(".spinner-border");
+          elem.toggleClass("d-none");
+          elem.next(".sr-only").toggleClass("d-none");
+          $(btn).children(".btn-text").toggleClass("d-none");
+        }
+
+        function scrollToBottom() {
+          $('html, body').animate({
+            scrollTop: $(document).height(),
+          }, 0);
+        }
+
         $('#submit').click(function(ev) {
           ev.preventDefault();
+          $('#submit-msgs .alert').addClass('d-none');
+
+          var btn = this;
+          toggleBtnLoading(btn);
+
           var request = $.ajax({
             url: serverUrl,
             type: 'post',
@@ -198,12 +229,24 @@
             data: $(this).parents('form').serialize(),
           })
 
-          request.done(function() {
-            alert('Success!');
+          request.always(function() {
+            toggleBtnLoading(btn);
+          })
+
+          request.done(function(res) {
+            $('#submit-success').removeClass('d-none');
+            scrollToBottom();
           });
 
-          request.fail(function() {
-            alert('Submission failed!');
+          request.fail(function(jqXHR) {
+            var errorText;
+            if (jqXHR.responseJSON && jqXHR.responseJSON["Error"]) {
+              errorText = jqXHR.responseJSON["Error"];
+            } else {
+              errorText = "There was a problem submitting your request. Please try again, or contact support@oviohub.com";
+            }
+            $('#submit-errors').text(errorText).removeClass('d-none');
+            scrollToBottom();
           });
         });
 
