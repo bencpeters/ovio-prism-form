@@ -94,8 +94,12 @@ def filter_by_request_url(f):
 @app.route("/submit", methods=["POST"])
 @filter_by_request_url
 def submit():
-    send_to_airtable(transform_form_to_airtable(request.form))
-    return jsonify({"status": "success"})
+    try:
+        send_to_airtable(transform_form_to_airtable(request.form))
+        return jsonify({"status": "success"})
+    except Exception as err:
+        app.logger.error(f"Error saving to AirTable: {err}")
+        return jsonify({"Error": "Failed to save form data. Try resubmitting, or email support@oviohub.com if the probelm persists."}), 500
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
