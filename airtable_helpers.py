@@ -92,28 +92,92 @@ def _lookup_or_call(form_data, f):
     the type of `f`
     """
     try:
-        return f(form_data)
+        res = f(form_data)
     except TypeError:
         try:
-            return form_data[f]
+            res = form_data[f]
         except KeyError:
             return None
 
-def _convert_to_record_ids(field_name, linked_table):
-    def _convert_to_record_ids_inner(d):
-        records = [l for l in [linked_table[l] for l in _get_list(field_name)(d)]
-                   if l is not None]
-        return records
-    return _convert_to_record_ids_inner
+    # If we've got a list, filter out None values. Need an isinstance check since strings act like
+    # lists
+    if not isinstance(res, str):
+        try:
+            res = _filter_none(res)
+        except TypeError:
+            pass
+
+    return res
 
 
-def _nonrelational_list_inputs(field_name, linked_table):
+def _list_to_string(values):
+    """Helper to transform a list of values into a comma separated string
+    """
+    return ", ".join(values)
+
+
+def _convert_to_record_ids(names, linked_table):
+    """Takes a list of names and converts them to record ids based on the `linked_table` provided
+    """
+    return [linked_table[n] for n in names]
+
+
+def _nonrelational_list_inputs(names, linked_table):
     """Helper to get the list of values that don't correspond to records in the `linked_table`
     """
-    def _nonrelational_list_inputs_inner(d):
-        records = [l for l in _get_list(field_name)(d) if linked_table[l] is None]
-        return ", ".join(records)
-    return _nonrelational_list_inputs_inner
+    return [n for n in names if linked_table[n] is None]
+
+
+def _filter_in_list(values, members):
+    """Helper to get the portion of a list that is contained in `members`
+    """
+    return [v for v in values if v in members]
+
+def _filter_not_in_list(values, members):
+    """Helper to get the portion of a list that is not contained in `members`
+    """
+    return [v for v in values if v not in members]
+
+
+def _remap_list(values, mapping):
+    """Helper gets a list of values and remaps them based on the given map
+    """
+    return [mapping[v] if v in mapping else v for v in values]
+
+
+def _filter_none(values):
+    """Helper to filter out None values in a list
+    """
+    return [v for v in values if v is not None]
+
+
+VALID_ROLES = [
+    'Developer',
+    'Project Lead',
+    'System Architect',
+    'QA',
+    'Designer',
+]
+
+CAUSES_MAP = {
+    "No Poverty": "1. No Poverty",
+    "Zero Hunger": "2. Zero Hunger",
+    "Good Health & Well-Being": "3. Good Health and Well-being",
+    "Quality Education": "4. Quality Education",
+    "Gender Equality": "5. Gender Equality",
+    "Clean Water & Sanitation": "6. Clean Water and Sanitation",
+    "Affordable & Clean Energy": "7. Affordable and Clean Energy",
+    "Decent Work & Economic Growth": "8. Decent Work and Economic Growth",
+    "Industry Innovation & Infrastructure": "9. Industry Innovation and Infrastructure",
+    "Reducing Inequality": "10. Reduced Inequalities",
+    "Sustainable Cities & Communities": "11. Sustainable Cities and Communities",
+    "Responsible Consumption & Production": "12. Responsible Consumption and Production",
+    "Climate Action": "13. Climate Action",
+    "Migration & Refugee Crisis": "14. Migration and Refugee crisis",
+    "Life on Land": "15. Life on Land",
+    "Peace, Justice, & Strong Institutions": "16: Peace, Justice and Strong Institutions",
+    "Partnerships to Achieve the Goal": "17: Partnerships to achieve the Goal",
+}
 
 
 FIELD_MAP = {
@@ -126,16 +190,23 @@ FIELD_MAP = {
     "How many years of technical experience do you have?": _to_pos_int("tech-exp"),
     "Are you a student?": _checkbox_to_bool("student"),
     "Are you interested in mentoring?": _checkbox_to_bool("mentor"),
-    "What role would you be most interested in playing?": _get_list("roles[]"),
-    "What amazing skills are you bringing?": _convert_to_record_ids("skills[]", skills_table),
-    "Which causes are you most motivated by?": _convert_to_record_ids("causes[]", causes_table),
+    "What role would you be most interested in playing?":
+        lambda d: _filter_in_list(_get_list("roles[]")(d), VALID_ROLES),
+    "other_roles":
+        lambda d: _list_to_string(_filter_not_in_list(_get_list("roles[]")(d), VALID_ROLES)),
+    "What amazing skills are you bringing?":
+        lambda d: _convert_to_record_ids(_get_list("skills[]")(d), skills_table),
+    "Which causes are you most motivated by?":
+        lambda d: _convert_to_record_ids(_remap_list(_get_list("causes[]")(d), CAUSES_MAP), causes_table),
     "How many hours can you commit weekly?": _to_pos_int("hours"),
     "Are you interested in a specific project?": "project",
     "Is there anything else we should know about you?": "other",
     "Would you like to recommend other impactful projects or organizations that should be featured on the hub?": "recommendations",
-    "Other causes ?": _nonrelational_list_inputs("causes[]", causes_table),
+    "Other causes ?":
+        lambda d: _list_to_string(_nonrelational_list_inputs(_remap_list(_get_list("causes[]")(d), CAUSES_MAP), causes_table)),
     "Company or University": "org",
-    "Other skills?": _nonrelational_list_inputs("skills[]", skills_table),
+    "Other skills?":
+        lambda d: _list_to_string(_nonrelational_list_inputs(_get_list("skills[]")(d), skills_table)),
     #"Projects": ,
     #"Org. Proposed": ,
 }
