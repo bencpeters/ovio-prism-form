@@ -159,6 +159,13 @@ VALID_ROLES = [
     'Designer',
 ]
 
+VALID_TYPES = [
+    'Mentoring Organizations',
+    'Mentoring Students',
+    'Volunteering - Project Based',
+    'Volunteering - Task Based',
+]
+
 CAUSES_MAP = {
     "No Poverty": "1. No Poverty",
     "Zero Hunger": "2. Zero Hunger",
@@ -192,6 +199,8 @@ FIELD_MAP = {
     "Are you interested in mentoring?": _checkbox_to_bool("mentor"),
     "What role would you be most interested in playing?":
         lambda d: _filter_in_list(_get_list("roles[]")(d), VALID_ROLES),
+    "volunteering_type":
+        lambda d: _filter_in_list(_get_list("types[]")(d), VALID_TYPES),
     "other_roles":
         lambda d: _list_to_string(_filter_not_in_list(_get_list("roles[]")(d), VALID_ROLES)),
     "What amazing skills are you bringing?":
