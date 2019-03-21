@@ -3,11 +3,14 @@
 import os
 
 from airtable import Airtable
-volunteer_table = Airtable(os.getenv("AIRTABLE_BASE_KEY"), os.getenv("AIRTABLE_TABLE_NAME"))
+volunteer_table = Airtable(
+    os.getenv("AIRTABLE_BASE_KEY"), os.getenv("AIRTABLE_TABLE_NAME"))
+
 
 class AirTableLinkedRecords(object):
     """Class to look up linked records in the specified AirTable table.
     """
+
     def __init__(self, table_name, key_col="Name", use_cache=True):
         self.name = table_name
         self.key_col = key_col
@@ -44,8 +47,10 @@ class AirTableLinkedRecords(object):
         else:
             return res[0]["id"]
 
+
 skills_table = AirTableLinkedRecords("Skills")
 causes_table = AirTableLinkedRecords("Causes")
+
 
 def _to_pos_int(field_name):
     """Helper creates an accessor function to search for the specified `field_name` and convert it
@@ -133,6 +138,7 @@ def _filter_in_list(values, members):
     """
     return [v for v in values if v in members]
 
+
 def _filter_not_in_list(values, members):
     """Helper to get the portion of a list that is not contained in `members`
     """
@@ -180,7 +186,7 @@ CAUSES_MAP = {
     "Sustainable Cities & Communities": "11. Sustainable Cities and Communities",
     "Responsible Consumption & Production": "12. Responsible Consumption and Production",
     "Climate Action": "13. Climate Action",
-    "Migration & Refugee Crisis": "14. Migration and Refugee crisis",
+    "Life below Water": "14. Life below Water",
     "Life on Land": "15. Life on Land",
     "Peace, Justice, & Strong Institutions": "16: Peace, Justice and Strong Institutions",
     "Partnerships to Achieve the Goal": "17: Partnerships to achieve the Goal",
@@ -202,22 +208,27 @@ FIELD_MAP = {
     "volunteering_type":
         lambda d: _filter_in_list(_get_list("types[]")(d), VALID_TYPES),
     "other_roles":
-        lambda d: _list_to_string(_filter_not_in_list(_get_list("roles[]")(d), VALID_ROLES)),
+        lambda d: _list_to_string(_filter_not_in_list(
+            _get_list("roles[]")(d), VALID_ROLES)),
     "What amazing skills are you bringing?":
-        lambda d: _convert_to_record_ids(_get_list("skills[]")(d), skills_table),
+        lambda d: _convert_to_record_ids(
+            _get_list("skills[]")(d), skills_table),
     "Which causes are you most motivated by?":
-        lambda d: _convert_to_record_ids(_remap_list(_get_list("causes[]")(d), CAUSES_MAP), causes_table),
+        lambda d: _convert_to_record_ids(_remap_list(
+            _get_list("causes[]")(d), CAUSES_MAP), causes_table),
     "How many hours can you commit weekly?": _to_pos_int("hours"),
     "Are you interested in a specific project?": "project",
     "Is there anything else we should know about you?": "other",
     "Would you like to recommend other impactful projects or organizations that should be featured on the hub?": "recommendations",
     "Other causes ?":
-        lambda d: _list_to_string(_nonrelational_list_inputs(_remap_list(_get_list("causes[]")(d), CAUSES_MAP), causes_table)),
+        lambda d: _list_to_string(_nonrelational_list_inputs(
+            _remap_list(_get_list("causes[]")(d), CAUSES_MAP), causes_table)),
     "Company or University": "org",
     "Other skills?":
-        lambda d: _list_to_string(_nonrelational_list_inputs(_get_list("skills[]")(d), skills_table)),
-    #"Projects": ,
-    #"Org. Proposed": ,
+        lambda d: _list_to_string(_nonrelational_list_inputs(
+            _get_list("skills[]")(d), skills_table)),
+    # "Projects": ,
+    # "Org. Proposed": ,
 }
 
 
@@ -225,7 +236,8 @@ def transform_form_to_airtable(form_data):
     """Changes field names and remakes form data to match the schema expected by AirTable
     """
     return {k: v for k, v in
-            {k: _lookup_or_call(form_data, v) for k, v in FIELD_MAP.items()}.items()
+            {k: _lookup_or_call(form_data, v)
+             for k, v in FIELD_MAP.items()}.items()
             if v is not None}
 
 
