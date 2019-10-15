@@ -3,6 +3,7 @@
 import os
 import sys
 import logging
+import re
 from functools import wraps
 from urllib.parse import urlparse
 from requests.exceptions import HTTPError
@@ -32,8 +33,15 @@ def filter_by_request_url(f):
     @wraps(f)
     def decorated_func(*args, **kwargs):
         host = urlparse(request.environ['HTTP_ORIGIN'])
-        allowed = urlparse(os.getenv("FORM_SERVER"))
-        if host.hostname != allowed.hostname or host.port != allowed.port:
+        form_server = os.getenv("FORM_SERVER")
+
+        if re.match("^\[.+\]$", form_server) is not None:
+            allowed = [item.strip() for item in form_server[1:-1].split(",")]
+        else:
+            allowed = [form_server]
+
+        allowed = [urlparse(h) for h in allowed]
+        if next((h for h in allowed if host.hostname == h.hostname and host.port == h.port), None) is None:
             return jsonify({"Error": "Not authorized to make this request."}), 401
         else:
             return f(*args, **kwargs)

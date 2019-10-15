@@ -56,7 +56,7 @@ def _to_pos_int(field_name):
     """Helper creates an accessor function to search for the specified `field_name` and convert it
     to a positive integer
 
-    Returns a calleable 
+    Returns a calleable
     """
     def _to_pos_int_inner(d):
         try:
@@ -64,7 +64,7 @@ def _to_pos_int(field_name):
             if i < 0:
                 raise ValueError("Must be a positive integer")
             return i
-        except ValueError:
+        except (ValueError, TypeError):
             return 0
     return _to_pos_int_inner
 
@@ -82,7 +82,7 @@ def _checkbox_to_bool(field_name):
 
 def _get_list(field_name):
     """Helper to create an accessor function for converting the specified field into a list. This
-    assumes that the passed in Dict is a Flask `request.form` and `getlist` will operate on field 
+    assumes that the passed in Dict is a Flask `request.form` and `getlist` will operate on field
     names in the "xxxx[]" format as usual.
 
     Returns a calleable
@@ -103,6 +103,8 @@ def _lookup_or_call(form_data, f):
             res = form_data[f]
         except KeyError:
             return None
+    except Exception as e:
+        return None
 
     # If we've got a list, filter out None values. Need an isinstance check since strings act like
     # lists
@@ -196,7 +198,7 @@ CAUSES_MAP = {
 FIELD_MAP = {
     "Name": "name",
     "Email": "email",
-    "Country & City of residence": lambda d: ", ".join([d["city"], d["country"]]),
+    "Country & City of residence": lambda d: ", ".join([s for s in (d["city"], d["country"]) if len(s) > 0]),
     "LinkedIn": "linked-in",
     "GitHub": "github",
     "Have you ever volunteered for a nonprofit before? If yes,  please specify.": "non-profit-experience",
