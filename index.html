@@ -134,33 +134,46 @@
         text-align: center;
         max-width: 150px;
       }
+
+      .ovio-orange, .ovio-orange a {
+        color: #F47820;
+      }
+
+      .background {
+        background: url(./images/flood.jpg) no-repeat;
+        background-size: cover;
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        opacity: 0.5;
+        z-index: -1;
+      }
+
+      .container > .col {
+        max-width: 800px;
+        margin: auto;
+        background-color: white;
+      }
+
+      .row {
+        padding: 0px 16px;
+      }
+
+      .logo {
+        margin-bottom: 8px;
+      }
     </style>
 
     <title>WFP PRISM | Powered by Ovio</title>
   </head>
   <body>
     <div class="container">
-      <div class="col-lg-9 offset-lg-1">
+      <div class="col">
         <div class="row align-items-center py-5">
           <div class="col-8 offset-2">
             <img src="images/wfp-logo.png" class="img-fluid" alt="WFP Logo" />
           </div>
-        </div>
-
-        <div class="row py-4">
-          <p>
-            PRISM is a hub for critical information that governments, NGOs, and the WFP need to respond to environmental disasters in an effective, coordinated manner. It combines remote sensing data, official data from census and reports, and on-the-ground updates into a single information platform with integrated data visualization and prediction.
-          </p>
-
-          <img src="images/flood.jpg" class="img-fluid" alt="Flooding" />
-
-          <p>
-            We are looking for help expand the PRISM platform to more countries and adding additional functionality, including more data sources, Machine Learning, and additional visualizations. To help us scale to the next level, we need world-class software engineers, data scientists, and systems architects.
-          </p>
-
-          <p>
-            Please reach out to us if you are interested in hearing more about what we're building, sharing your network, mentoring, or even volunteering your own skills. Together, we can make sure that our responses to environmental disasters are as effective and efficient as possible!
-          </p>
         </div>
 
         <form class="needs-validation" novalidate="">
@@ -168,7 +181,7 @@
             <h3>Reach out to contact the PRISM team</h3>
             <p>We love to hear from people who are interested in helping out the project.</p>
             <div class="form-row">
-              <div class="col">
+              <div class="col-12 col-md-6">
                 <label for="name">Name</label>
                 <input
                   type="text"
@@ -178,7 +191,7 @@
                   required=""
                 />
               </div>
-              <div class="col">
+              <div class="col-12 col-md-6">
                 <label for="name">Email</label>
                 <input
                   type="text"
@@ -191,7 +204,7 @@
             </div>
 
             <div class="form-row">
-              <div class="col">
+              <div class="col-12 col-md-6">
                 <label for="name">City</label>
                 <input
                   type="text"
@@ -200,7 +213,7 @@
                   name="city"
                 />
               </div>
-              <div class="col">
+              <div class="col-12 col-md-6">
                 <label for="name">Country</label>
                 <input
                   type="text"
@@ -212,16 +225,16 @@
             </div>
 
             <div class="form-row">
-              <div class="col">
+              <div class="col-12 col-md-6">
                 <label for="org">Company/Organization</label>
                 <input
                   type="text"
                   class="form-control"
-                  placeholder="Company/University"
+                  placeholder="Company/Organization"
                   name="org"
                 />
               </div>
-              <div class="col">
+              <div class="col-12 col-md-6">
                 <label for="name">LinkedIn Profile</label>
                 <input type="text" class="form-control" placeholder="LinkedIn" name="linked-in" />
               </div>
@@ -235,7 +248,7 @@
             />
 
             <div class="form-row">
-              <div class="col">
+              <div class="col-12">
                 <label for="other">
                   What is your interest in the PRISM project? How can you help the project/team?
                 </label>
@@ -246,7 +259,7 @@
           </div>
 
           <div class="row" id="submit-msgs">
-            <div class="col">
+            <div class="col-12 col-md-6">
               <div
                 class="alert alert-danger d-none"
                 id="submit-errors"
@@ -281,16 +294,36 @@
           </div>
         </form>
 
+        <div class="row py-4">
+          <p>
+            PRISM is a hub for critical information that governments, NGOs, and the WFP need to respond to environmental disasters in an effective, coordinated manner. It combines remote sensing data, official data from census and reports, and on-the-ground updates into a single information platform with integrated data visualization and prediction.
+          </p>
+
+          <div>
+            <img src="images/prism-dashboard.jpg" class="img-fluid" alt="PRISM Dashboard" />
+          </div>
+
+          <p>
+            We are looking for help expand the PRISM platform to more countries and adding additional functionality, including more data sources, Machine Learning, and additional visualizations. To help us scale to the next level, we need world-class software engineers, data scientists, and systems architects.
+          </p>
+
+          <p>
+            Please reach out to us if you are interested in hearing more about what we're building, sharing your network, mentoring, or even volunteering your own skills. Together, we can make sure that our responses to environmental disasters are as effective and efficient as possible!
+          </p>
+        </div>
+
         <div class="row">
-          <div class="powered-by-ovio">
+          <div class="powered-by-ovio ovio-orange">
             <a href="https://www.ovio.org" target="_blank">
-              <img src="images/logo-ovio.jpg" class="img-fluid" alt="Ovio Logo" />
+              <img src="images/ovio-logo.png" class="img-fluid logo" alt="Ovio Logo" />
+              <p class="small">Powered by Ovio</p>
             </a>
-            <p class="small">Powered by <a href="https://www.ovio.org/" target="_blank">Ovio</a>
           </div>
         </div>
       </div>
     </div>
+
+    <div class="background"></div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
