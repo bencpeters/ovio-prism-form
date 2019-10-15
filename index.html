@@ -116,69 +116,57 @@
         box-shadow: inset 0 1px 0 hsla(0, 0%, 100%, 0.2);
         text-shadow: rgba(0, 0, 0, 0.05) 0 1px 0;
         border-color: #e76d0c #e15500 #e15500;
+        margin-top: 8px;
+        opacity: 0.9;
       }
 
       .btn-amazon-orange:hover {
         color: #ffffff;
+        opacity: 1;
+      }
+
+      .form-row {
+        padding-top: 8px;
+      }
+
+      .powered-by-ovio {
+        margin: auto;
+        text-align: center;
+        max-width: 150px;
       }
     </style>
 
-    <title>Volunteer for OvioHub</title>
+    <title>WFP PRISM | Powered by Ovio</title>
   </head>
   <body>
     <div class="container">
       <div class="col-lg-9 offset-lg-1">
         <div class="row align-items-center py-5">
-          <div class="col-7">
-            <img src="images/aws-logo.jpg" class="img-fluid" alt="AWS Logo" />
-          </div>
-
-          <div class="col">
-            <img src="images/logo-ovio.jpg" class="img-fluid" alt="Ovio Logo" />
+          <div class="col-8 offset-2">
+            <img src="images/wfp-logo.png" class="img-fluid" alt="WFP Logo" />
           </div>
         </div>
 
         <div class="row py-4">
           <p>
-            Nonprofits specialize in the challenges they are solving and do not
-            always have access to the technology they need to maximize their
-            impact. Accessing expertise from AWS technical experts will help
-            them accelerate technology projects and innovation. From helping
-            organizations better match surplus food to scaling the opportunity
-            for people in underrepresented communities, your support can have a
-            huge impact!
+            PRISM is a hub for critical information that governments, NGOs, and the WFP need to respond to environmental disasters in an effective, coordinated manner. It combines remote sensing data, official data from census and reports, and on-the-ground updates into a single information platform with integrated data visualization and prediction.
+          </p>
+
+          <img src="images/flood.jpg" class="img-fluid" alt="Flooding" />
+
+          <p>
+            We are looking for help expand the PRISM platform to more countries and adding additional functionality, including more data sources, Machine Learning, and additional visualizations. To help us scale to the next level, we need world-class software engineers, data scientists, and systems architects.
           </p>
 
           <p>
-            By filling out the below survey, we will be able to appropriately
-            match you with projects that are uniquely suited to your skill-sets
-            and areas of interest.
-          </p>
-
-          <p>
-            This form will help us understand, what you care about, how you can
-            help, and the format that works best for you. As a reminder, there
-            are two ways you can get involved:
-          </p>
-
-          <ul>
-            <li>Tech Volunteering</li>
-            <li>Tech Mentoring</li>
-          </ul>
-
-          <p>
-            When a fitting opportunity is identified, Ovio will reach out to you
-            to confirm your interest. Then we will introduce you to the
-            organization and guide you through onboarding if necessary. Finally,
-            we will regularly check-in with you and the recipient organization
-            during your involvement to make sure that both have a fulfilling and
-            impactful experience.
+            Please reach out to us if you are interested in hearing more about what we're building, sharing your network, mentoring, or even volunteering your own skills. Together, we can make sure that our responses to environmental disasters are as effective and efficient as possible!
           </p>
         </div>
 
         <form class="needs-validation" novalidate="">
           <div class="border p-4">
-            <h3>Who are you?</h3>
+            <h3>Reach out to contact the PRISM team</h3>
+            <p>We love to hear from people who are interested in helping out the project.</p>
             <div class="form-row">
               <div class="col">
                 <label for="name">Name</label>
@@ -210,7 +198,6 @@
                   class="form-control"
                   placeholder="City"
                   name="city"
-                  required=""
                 />
               </div>
               <div class="col">
@@ -220,193 +207,40 @@
                   class="form-control"
                   placeholder="Country"
                   name="country"
-                  required=""
                 />
               </div>
             </div>
 
             <div class="form-row">
               <div class="col">
-                <!--
-                <label for="org">Company/University</label>
-                -->
+                <label for="org">Company/Organization</label>
                 <input
-                  type="hidden"
+                  type="text"
                   class="form-control"
                   placeholder="Company/University"
                   name="org"
-                  value="Amazon AWS"
                 />
               </div>
-
-              <!--
-              <div class="col-md-5 col-lg-4 align-self-center text-center">
-                <div class="form-check form-check-inline">
-                  <label class="form-check-label mr-2" for="student">Are you a student?</label>
-                  <input class="form-check-input" type="checkbox" name="student" />
-                </div>
-              </div>
-              -->
-            </div>
-
-            <div class="form-row">
-              <div class="col">
-                <label for="other"
-                  >Anything else we should know about you?</label
-                >
-                <textarea rows="3" class="form-control" name="other"></textarea>
-              </div>
-            </div>
-          </div>
-
-          <div class="border p-4 mt-3">
-            <h3>Profiles & Previous Work</h3>
-
-            <div class="form-row">
-              <div class="col-md-8">
-                <label for="tech-exp"
-                  >How many years of technical experience do you have?</label
-                >
-                <input type="number" class="form-control" name="tech-exp" />
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="col">
-                <label for="skills">Technical Skills</label>
-                <select
-                  class="selector-multiple form-control"
-                  name="skills[]"
-                  multiple="multiple"
-                  size="1"
-                >
-                </select>
-              </div>
-            </div>
-            <!--   
-            <div class="form-row">
               <div class="col">
                 <label for="name">LinkedIn Profile</label>
                 <input type="text" class="form-control" placeholder="LinkedIn" name="linked-in" />
               </div>
-            </div>  -->
-
-            <div class="form-row">
-              <div class="col">
-                <label for="name">Github Profile</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Github Profile"
-                  name="github"
-                />
-              </div>
             </div>
 
-            <div class="form-row">
-              <div class="col">
-                <label for="non-profit-experience"
-                  >Have you ever volunteered for a nonprofit before?</label
-                >
-                <textarea
-                  rows="3"
-                  class="form-control"
-                  name="non-profit-experience"
-                  placeholder="Describe any previous nonprofit experience"
-                ></textarea>
-              </div>
-            </div>
-          </div>
-
-          <div class="border p-4 my-3">
-            <h3>Volunteering Interest</h3>
-
-            <div class="form-row">
-              <!--   
-              <div class="col"> 
-                <label for="roles">What role(s) would you be interested in?</label>
-                <select class="selector-multiple form-control" name="roles[]" multiple="multiple" size="1">
-                </select>
-              </div> -->
-
-              <div class="col">
-                <label for="types"
-                  >What type of volunteering are you most interested in?</label
-                >
-                <select
-                  class="selector-multiple form-control"
-                  name="types[]"
-                  multiple="multiple"
-                  size="4"
-                >
-                </select>
-              </div>
-            </div>
+            <input
+              type="hidden"
+              class="form-control"
+              name="recommendations"
+              value="WFP - PRISM"
+            />
 
             <div class="form-row">
               <div class="col">
-                <label for="hours"
-                  >How many hours would you like to commit to weekly (if
-                  recurring)?</label
-                >
-                <input
-                  class="form-control"
-                  type="number"
-                  placeholder="Weekly Hours"
-                  required=""
-                  name="hours"
-                  aria-describedby="hoursHelpBlock"
-                />
-                <small class="form-text text-muted" id="hoursHelpBlock">
-                  Please be conservative and realistic in your answer. This
-                  question only applies if you selected Mentoring or Project
-                  Based.
-                </small>
-              </div>
-            </div>
+                <label for="other">
+                  What is your interest in the PRISM project? How can you help the project/team?
+                </label>
 
-            <!-- 
-            <div class="col-md-5">
-                <div class="form-check form-check-inline">
-                  <label class="form-check-label mr-2" for="mentor">Interested in mentoring?</label>
-                  <input class="form-check-input" type="checkbox" name="mentor" />
-                </div>
-              </div>
-            </div> -->
-
-            <div class="form-row">
-              <div class="col">
-                <label for="causes"
-                  >What causes are you most motivated by?</label
-                >
-                <select
-                  class="selector-multiple form-control"
-                  name="causes[]"
-                  multiple="multiple"
-                  size="1"
-                >
-                </select>
-              </div>
-            </div>
-
-            <!-- 
-            <div class="form-row">
-              <div class="col">
-                <label for="project">Are you interested in a specific project?</label>
-                <input class="form-control" type="text" placeholder="Project Name" name="project" />
-              </div>
-            </div>
-             -->
-
-            <div class="form-row">
-              <div class="col">
-                <label for="recommendations"
-                  >Would you like to recommend projects or organizations?</label
-                >
-                <textarea
-                  rows="3"
-                  class="form-control"
-                  name="recommendations"
-                ></textarea>
+                <textarea rows="3" class="form-control" name="other"></textarea>
               </div>
             </div>
           </div>
@@ -423,7 +257,7 @@
                 id="submit-success"
                 role="alert"
               >
-                Thank you for submitting your information to OvioHub!
+                Thank you for submitting your information to PRISM!
               </div>
             </div>
           </div>
@@ -446,6 +280,15 @@
             </div>
           </div>
         </form>
+
+        <div class="row">
+          <div class="powered-by-ovio">
+            <a href="https://www.ovio.org" target="_blank">
+              <img src="images/logo-ovio.jpg" class="img-fluid" alt="Ovio Logo" />
+            </a>
+            <p class="small">Powered by <a href="https://www.ovio.org/" target="_blank">Ovio</a>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -472,7 +315,8 @@
 
     <script>
       $(document).ready(function() {
-        var serverUrl = "https://ovio-intake-proxy.herokuapp.com/submit";
+        //var serverUrl = "https://ovio-intake-proxy.herokuapp.com/submit";
+        var serverUrl = "http://localhost:5000/submit";
 
         function toggleBtnLoading(btn) {
           var elem = $(btn).children(".spinner-border");
@@ -541,7 +385,7 @@
               errorText = jqXHR.responseJSON["Error"];
             } else {
               errorText =
-                "There was a problem submitting your request. Please try again, or contact support@oviohub.com";
+                "There was a problem submitting your request. Please try again, or contact support@ovio.org";
             }
             $("#submit-errors")
               .text(errorText)
