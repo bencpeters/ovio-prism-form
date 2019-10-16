@@ -321,7 +321,7 @@
 
         <div class="row">
           <div class="powered-by-ovio ovio-orange">
-            <a href="https://www.ovio.org" target="_blank">
+            <a href="https://www.ovio.org" target="_blank" onClick="trackEvent('ovio-button-click')">
               <img src="images/ovio-logo.png" class="img-fluid logo" alt="Ovio Logo" />
               <p class="small">Powered by Ovio</p>
             </a>
@@ -352,6 +352,16 @@
 
     <!-- Select2 JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-147162743-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-147162743-1');
+    </script>
 
     <script>
       $(document).ready(function() {
@@ -513,6 +523,13 @@
           ]
         });
       });
+
+      function trackEvent(eventName) {
+        gtag('event', eventName, {
+          event_category: 'user-interaction',
+          event_label: eventName,
+        });
+      }
     </script>
   </body>
 </html>
